@@ -1,0 +1,123 @@
+<div id="main" class="w-screen h-screen bg-[#f3f8fd] grid place-content-center">
+  <div
+    *ngIf="employee"
+    id="card"
+    class="flex flex-col items-center bg-[#fff] shadow-xl rounded-xl w-screen h-screen lg:w-fit lg:h-fit justify-center overflow-auto"
+  >
+    <div class="flex flex-col lg:flex-row">
+      <div
+        id="left"
+        class="relative flex flex-col items-center justify-center m-20 mb-0 lg:mb-10 lg:mr-10 w-80 rounded-xl"
+      >
+        <div
+          id="profileIcon"
+          class="flex flex-col items-center justify-center gap-4 m-4"
+        >
+          <button
+            class="absolute left-0 grid w-12 h-12 bg-blue-500 rounded-full -top-3 place-content-center"
+            routerLink="/"
+          >
+            <span class="text-3xl text-white material-symbols-rounded">
+              chevron_left
+            </span>
+          </button>
+          <img
+            src="https://api.dicebear.com/6.x/initials/svg?seed={{
+              employee.firstName
+            }}{{ employee.lastName }}"
+            alt=""
+            class="w-32 h-32 bg-yellow-400 rounded-full"
+          />
+          <p class="text-2xl font-bold font-Inika text-[#555555]">
+            {{ employee.firstName }} {{ employee.lastName }}
+          </p>
+          <p class="text-2xl font-bold font-ScopeOne text-[#555555]">
+            ID : {{ employee.id }}
+          </p>
+        </div>
+        <div
+          id="detials"
+          class="flex flex-col w-full gap-3 p-3 bg-[#f3f8fd] font-Poppins rounded-xl border-2 border-[#dfdfdf]"
+        >
+          <div id="joinDate" class="flex gap-2">
+            <p>Gender :</p>
+            <p>{{ employee.gender }}</p>
+          </div>
+          <div id="mail" class="flex gap-2">
+            <p>Email :</p>
+            <p>{{ employee.emailId }}</p>
+          </div>
+          <div id="phone" class="flex gap-2">
+            <p>Phone :</p>
+            <p>{{ employee.phoneNumber }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div
+        id="right"
+        class="flex flex-col items-center justify-center m-20 mt-2 mb-5 lg:mt-20 lg:mb-10 lg:ml-0 w-80 rounded-xl"
+      >
+        <div
+          id="detials"
+          class="flex flex-col w-full h-full gap-3 p-3 bg-[#f3f8fd] font-Poppins rounded-xl border-2 border-[#dfdfdf]"
+        >
+          <div id="birthDate" class="flex gap-2">
+            <p>Date of Birth:</p>
+            <p>{{ employee.dateOfBirth }}</p>
+          </div>
+          <div id="joinDate" class="flex gap-2">
+            <p>Date of Joining :</p>
+            <p>{{ employee.dateOfJoining }}</p>
+          </div>
+          <div id="address" class="flex flex-col gap-3">
+            <p>Address 1  : {{ employee.adderssLine1 }},</p>
+            <p>Address 2  : {{ employee.adderssLine2 }},</p>
+            <p>Street     : {{ employee.street }},</p>
+            <p>District   : {{ employee.district }},</p>
+            <p>State      : {{ employee.state }},</p>
+            <p>Country    : {{ employee.country }},</p>
+            <p>Pin        : {{ employee.pinCode }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-col gap-2 mb-4 sm:flex-row md:mb-10 md:gap-12">
+      <button
+        [routerLink]="['/employee', 'Edit', employee.id]"
+        class="flex items-center justify-center gap-2 text-white bg-blue-500 w-80 sm:w-48 h-14 rounded-2xl"
+      >
+        <span class="h-8 material-symbols-rounded"> edit_square </span> Edit
+        Employee
+      </button>
+      <button
+        class="flex items-center justify-center gap-2 text-white bg-red-500 w-80 sm:w-48 h-14 rounded-2xl"
+        (click)="deletePop = true"
+      >
+        <span class="material-symbols-rounded"> delete </span>Delete Employee
+      </button>
+    </div>
+  </div>
+</div>
+<div *ngIf="deletePop" class="absolute top-0 grid w-full h-full bg-transparent backdrop-blur-sm place-content-center">
+  <div class="h-32 p-5 bg-[#f3f8fd] w-96 border-2 border-[#dfdfdf] rounded-xl shadow-2xl">
+    <p class="text-lg">Are you sure to delete employee detials</p>
+   <div class="grid w-full h-full grid-flow-col gap-2 py-5 place-content-end">
+    <button
+    class="grid w-20 h-10 gap-1 text-white bg-red-500 place-content-center rounded-xl"
+    (click)="deleteEmployee()"
+  >
+    Delete
+  </button>
+  <button
+  class="grid w-20 h-10 gap-1 text-white bg-gray-400 place-content-center rounded-xl"
+  (click)="deletePop = false"
+>
+  Cancel
+</button>
+   </div>
+
+  </div>
+  </div
+>

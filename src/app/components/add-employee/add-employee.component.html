@@ -1,0 +1,377 @@
+<div class="w-screen h-screen bg-[#f3f8fd] flex justify-center items-center">
+  <div
+    class="flex flex-col w-screen h-screen gap-8 px-4 py-4 overflow-auto bg-white shadow-xl sm:py-10 sm:px-20 lg:w-fit lg:h-fit rounded-xl"
+  >
+    <div class="flex items-center gap-6">
+      <button
+        class="grid w-10 h-10 bg-blue-500 rounded-full place-content-center"
+        [routerLink]="formType === 'Add' ? ['/'] : ['/employee', empId]"
+      >
+        <span class="text-3xl text-white material-symbols-rounded">
+          chevron_left
+        </span>
+      </button>
+      <p class="font-Inika text-2xl md:text-3xl text-[#555555] font-bold">
+        {{ formType }} Employee
+      </p>
+    </div>
+
+    <form [formGroup]="employeeForm" class="font-Poppins" (ngSubmit)="submit()">
+      <div class="grid gap-6 place-content-center lg:grid-cols-2">
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">First Name</label>
+          <input
+            placeholder="First Name"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            type="text"
+            formControlName="firstName"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['firstName'].errors &&
+              (fc['firstName'].dirty || fc['firstName'].touched)
+            "
+          >
+            <p *ngIf="fc['firstName'].errors?.['required']">
+              *First Name is required!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Last Name</label>
+          <input
+            placeholder="Last Name"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            type="text"
+            formControlName="lastName"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              (fc['lastName'].errors && fc['lastName'].dirty) ||
+              fc['lastName'].touched
+            "
+          >
+            <p *ngIf="fc['lastName'].errors?.['required']">
+              *Last Name is required!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Gender</label>
+          <div class="flex items-center h-10 gap-2 px-4">
+            <div class="">
+              <input
+                formControlName="gender"
+                type="radio"
+                value="MALE"
+                name="gender"
+              />
+              <label for=""> Male</label>
+            </div>
+            <div class="">
+              <input
+                formControlName="gender"
+                type="radio"
+                value="FEMALE"
+                name="gender"
+              />
+              <label for=""> Female</label>
+            </div>
+            <div class="">
+              <input
+                formControlName="gender"
+                type="radio"
+                value="OTHER"
+                name="gender"
+              />
+              <label for=""> Other</label>
+            </div>
+          </div>
+
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['gender'].errors &&
+              (fc['gender'].dirty || fc['gender'].touched)
+            "
+          >
+            <p *ngIf="fc['gender'].errors?.['required']">
+              *Gender is required!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Date of Birth</label>
+          <input
+            placeholder="Date of Birth"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            type="text"
+            formControlName="dateOfBirth"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['dateOfBirth'].errors &&
+              (fc['dateOfBirth'].dirty || fc['dateOfBirth'].touched)
+            "
+          >
+            <p *ngIf="fc['dateOfBirth'].errors?.['required']">
+              *Date of Birth is required!
+            </p>
+            <p *ngIf="fc['dateOfBirth'].errors?.['pattern'] ">
+              *Date must be in the format of (dd-mm-yyyy)
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Date of Joining</label>
+          <input
+            placeholder="Date of Joining"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            value=""
+            type="text"
+            formControlName="dateOfJoining"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['dateOfJoining'].errors &&
+              (fc['dateOfJoining'].dirty || fc['dateOfJoining'].touched)
+            "
+          >
+            <p *ngIf="fc['dateOfJoining'].errors?.['required']">
+              *Date of Joining is required!
+            </p>
+            <p *ngIf="fc['dateOfJoining'].errors?.['pattern'] ">
+              *Date must be in the format of (dd-mm-yyyy)
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Mobile</label>
+          <input
+            placeholder="Mobile Number"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            type="text"
+            formControlName="phoneNumber"
+          />
+          <p
+            class="text-xs text-red-500"
+            *ngIf="employeeForm.errors?.['numberUsed']"
+          >
+            *Mobile number already in use
+          </p>
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['phoneNumber'].errors &&
+              (fc['phoneNumber'].dirty || fc['phoneNumber'].touched)
+            "
+          >
+            <p *ngIf="fc['phoneNumber'].errors?.['required']">
+              *Mobile Number is required!
+            </p>
+            <p *ngIf="">*Mobile Number is tab_unselected</p>
+            <p *ngIf="fc['phoneNumber'].errors?.['pattern']">
+              *Mobile Number must be a 10 digit number!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Email Address</label>
+          <input
+            placeholder="Email Address"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            type="text"
+            formControlName="emailId"
+          />
+          <p
+            class="text-xs text-red-500"
+            *ngIf="employeeForm.errors?.['emailUsed']"
+          >
+            *Email id already in use
+          </p>
+
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['emailId'].errors &&
+              (fc['emailId'].dirty || fc['emailId'].touched)
+            "
+          >
+            <p *ngIf="fc['emailId'].errors?.['required']">
+              *Email Address is required!
+            </p>
+            <p *ngIf="fc['emailId'].errors?.['email']">
+              *invalid Email format!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Adderss Line1</label>
+          <input
+            placeholder="Adderss Line1"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            type="text"
+            formControlName="adderssLine1"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['adderssLine1'].errors &&
+              (fc['adderssLine1'].dirty || fc['adderssLine1'].touched)
+            "
+          >
+            <p *ngIf="fc['adderssLine1'].errors?.['required']">
+              *Adderss Line1 is required!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Adderss Line2</label>
+          <input
+            placeholder="Adderss Line2"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            type="text"
+            formControlName="adderssLine2"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['adderssLine2'].errors &&
+              (fc['adderssLine2'].dirty || fc['adderssLine2'].touched)
+            "
+          >
+            <p *ngIf="fc['adderssLine2'].errors?.['required']">
+              *Adderss Line2 is required!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Street</label>
+          <input
+            placeholder="Street"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            value=""
+            type="text"
+            formControlName="street"
+          />
+
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['street'].errors &&
+              (fc['street'].dirty || fc['street'].touched)
+            "
+          >
+            <p *ngIf="fc['street'].errors?.['required']">
+              *Street is required!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">District</label>
+          <input
+            placeholder="District"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            value=""
+            type="text"
+            formControlName="district"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['district'].errors &&
+              (fc['district'].dirty || fc['district'].touched)
+            "
+          >
+            <p *ngIf="fc['district'].errors?.['required']">
+              *District is required!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">State</label>
+          <input
+            placeholder="State"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            value=""
+            type="text"
+            formControlName="state"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['state'].errors && (fc['state'].dirty || fc['state'].touched)
+            "
+          >
+            <p *ngIf="fc['state'].errors?.['required']">*State is required!</p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Country</label>
+          <input
+            placeholder="Country"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            value=""
+            type="text"
+            formControlName="country"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['country'].errors &&
+              (fc['country'].dirty || fc['country'].touched)
+            "
+          >
+            <p *ngIf="fc['country'].errors?.['required']">
+              *Country is required!
+            </p>
+          </div>
+        </div>
+
+        <div class="flex flex-col gap-1">
+          <label for="" class="px-4">Pincode</label>
+          <input
+            placeholder="Pin code"
+            class="h-10 px-4 bg-[#f3f8fd] w-80 sm:w-96 rounded-xl border-2 border-[#dfdfdf] shadow-md outline-none"
+            value=""
+            type="text"
+            formControlName="pinCode"
+          />
+          <div
+            class="text-xs text-red-500"
+            *ngIf="
+              fc['pinCode'].errors &&
+              (fc['pinCode'].dirty || fc['pinCode'].touched)
+            "
+          >
+            <p *ngIf="fc['pinCode'].errors?.['required']">
+              *Pincode is required!
+            </p>
+          </div>
+        </div>
+      </div>
+      <div class="flex justify-center w-full">
+        <button
+          class="h-12 mt-6 text-xl font-bold text-white bg-blue-500 shadow-xl w-80 sm:w-96 lg:w-full disabled:bg-gray-600 disabled:hover:cursor-not-allowed rounded-2xl"
+          [innerHTML]="formType === 'Add' ? 'Add' : 'Save'"
+        ></button>
+      </div>
+    </form>
+  </div>
+</div>

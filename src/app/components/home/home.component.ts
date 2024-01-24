@@ -17,6 +17,5 @@ export class HomeComponent {
 
   ngOnInit(): void {
     this.allEmployees = this.employeeService.getAllEmployee();
-    console.log(this.allEmployees);
   }
 }

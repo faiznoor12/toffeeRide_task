@@ -61,7 +61,6 @@ export class AddEmployeeComponent {
 
     if (formType === 'Edit') {
       this.employee = this.employeeService.getEmployee(this.empId)!;
-      console.log(this.employee, this.empId);
 
       this.fc['firstName'].setValue(this.employee.firstName);
       this.fc['lastName'].setValue(this.employee.lastName);
@@ -97,7 +96,6 @@ export class AddEmployeeComponent {
       this.employeeForm.reset();
       return;
     }
-    // console.log(this.employeeForm.value ,this.empId);
 
     this.employeeService.editEmployee(this.employeeForm.get('id')?.value, this.employeeForm.value);
     this.router.navigateByUrl(`/employee/${this.empId}`);

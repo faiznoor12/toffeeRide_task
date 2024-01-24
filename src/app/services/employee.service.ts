@@ -7,10 +7,12 @@ import { dummyEmployees } from '../model/dummyEmployee';
 })
 export class EmployeeService {
   employeeArray: Employees[] = [];
+  lastId:number=0
 
   constructor() {
     if(!localStorage.getItem('array')){
         this.employeeArray = [...dummyEmployees]
+        this.lastId = dummyEmployees.length
         this.saveTolocalstorage()
        }
   }
@@ -23,7 +25,7 @@ export class EmployeeService {
     return array.find((val) => val.id == id);
   }
   addEmployee(val: Employees) {
-    val.id = this.employeeArray.length + 1;
+    val.id = this.lastId += 1
     this.employeeArray.push(val);
     this.saveTolocalstorage();
   }

@@ -24,7 +24,6 @@ export class EmployeeDetailsComponent {
   ngOnInit(): void {
     this.activeRoute.params.subscribe((res) => (this.id = res['id']));
     this.employee = this.employeeService.getEmployee(this.id)!;
-    console.log(this.employee);
   }
 
   deleteEmployee() {

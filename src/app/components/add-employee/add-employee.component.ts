@@ -37,8 +37,14 @@ export class AddEmployeeComponent {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       gender: ['', Validators.required],
-      dateOfBirth: ['',[Validators.required, Validators.pattern(/^\d{2}-\d{2}-\d{4}$/)]],
-      dateOfJoining: ['',[Validators.required, Validators.pattern(/^\d{2}-\d{2}-\d{4}$/)]],
+      dateOfBirth: [
+        '',
+        [Validators.required, Validators.pattern(/^\d{2}-\d{2}-\d{4}$/)],
+      ],
+      dateOfJoining: [
+        '',
+        [Validators.required, Validators.pattern(/^\d{2}-\d{2}-\d{4}$/)],
+      ],
       phoneNumber: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
       emailId: ['', [Validators.required, Validators.email]],
       adderssLine1: ['', Validators.required],
@@ -97,21 +103,40 @@ export class AddEmployeeComponent {
       return;
     }
 
-    this.employeeService.editEmployee(this.employeeForm.get('id')?.value, this.employeeForm.value);
+    this.employeeService.editEmployee(
+      this.employeeForm.get('id')?.value,
+      this.employeeForm.value
+    );
     this.router.navigateByUrl(`/employee/${this.empId}`);
   }
 }
 
 function checkNumber(data: AbstractControl): ValidationErrors | null {
-  if (formType === 'Edit') return null;
   let array: Employees[] = JSON.parse(localStorage.getItem('array')!);
+  if (formType === 'Edit') {
+    let filterdArray = array.filter(
+      (val) => val.phoneNumber === data.get('phoneNumber')!.value
+    );
+    if (!filterdArray.length) return null;
+    return filterdArray[0]?.id === data.get('id')!.value
+      ? null
+      : { numberUsed: true };
+  }
   return array.find((val) => val.phoneNumber === data.get('phoneNumber')!.value)
     ? { numberUsed: true }
     : null;
 }
 function checkEmail(data: AbstractControl): ValidationErrors | null {
-  if (formType === 'Edit') return null;
   let array: Employees[] = JSON.parse(localStorage.getItem('array')!);
+  if (formType === 'Edit') {
+    let filterdArray = array.filter(
+      (val) => val.emailId === data.get('emailId')!.value
+    );
+    if (!filterdArray.length) return null;
+    return filterdArray[0]?.id === data.get('id')!.value
+      ? null
+      : { emailUsed: true };
+  }
   return array.find((val) => val.emailId === data.get('emailId')!.value)
     ? { emailUsed: true }
     : null;
